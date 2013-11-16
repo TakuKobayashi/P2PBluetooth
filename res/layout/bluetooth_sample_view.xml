@@ -1,0 +1,28 @@
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<Button
+		android:id="@+id/deviceSearchButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/search_device_button_text"
+	/>
+
+	<Button
+		android:id="@+id/deviceDescoverableButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/deviceSearchButton"
+		android:text="@string/findable_self_button_text"
+	/>
+
+	<ListView
+		android:id="@+id/DeviceList"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/deviceSearchButton"
+	/>
+
+</RelativeLayout>

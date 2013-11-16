@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">P2PBluetoothSample</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+	<string name="app_name">P2PBluetoothSample</string>
+	<string name="action_settings">Settings</string>
+	<string name="hello_world">Hello world!</string>
+	<string name="device_name">端末名:</string>
+	<string name="device_mac_address">端末のmacアドレス:</string>
+	<string name="bond_status">bondStatus:</string>
+	<string name="new_line">\n</string>
+	<string name="show_bluetooth_on_message">ONにして出直して来い!!</string>
+	<string name="show_bluetooth_on_success_message">これで見つけられるね♪</string>
+	<string name="start_scan_message">スキャン開始</string>
+	<string name="finish_scan_message">スキャン終了</string>
+	<string name="mac_address_intent_key">address</string>
+	<string name="send_button_text">送信</string>
+	<string name="search_device_button_text">端末を探す</string>
+	<string name="findable_self_button_text">自分を見つけられるようにする</string>
 
 </resources>
