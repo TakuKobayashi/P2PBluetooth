@@ -12,6 +12,7 @@ import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.net.wifi.p2p.WifiP2pManager.ChannelListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -27,7 +28,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class BluetoothClientThread extends Thread {
+public class BluetoothClientThread extends HandlerThread {
 
 	//UUIDの生成
 	private static final String TAG = "P2PBluetooth_BluetoothClientThread";
@@ -39,8 +40,9 @@ public class BluetoothClientThread extends Thread {
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	public BluetoothClientThread(Context context, BluetoothDevice device, BluetoothAdapter bta) {
+		super(BluetoothClientThread.class.toString());
 		_clientAdapter = bta;
-		UUID uuid = UUID.fromString(BluetoothConnectingThread.COMMON_UUID);
+		UUID uuid = UUID.fromString(Config.STANDARD_BLUETOOTH_UUID);
 		try{
 			//自デバイスのBluetoothクライアントソケットの取得
 			_socket = device.createRfcommSocketToServiceRecord(uuid);
@@ -61,8 +63,8 @@ public class BluetoothClientThread extends Thread {
 			_socket.connect();
 		}catch(IOException e){
 			e.printStackTrace();
-			this.cancel();
-			Log.d(TAG, "clientException");
+			this.close();
+			return;
 		}
 		BluetoothConnectingThread connecting = new BluetoothConnectingThread(_context, _socket, this.getClass().getName());
 		connecting.start();
@@ -71,7 +73,7 @@ public class BluetoothClientThread extends Thread {
 		}
 	}
 
-	public void cancel() {
+	public void close() {
 		try {
 			this._socket.close();
 		} catch (IOException e) {
@@ -81,27 +83,19 @@ public class BluetoothClientThread extends Thread {
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	/**
-	 * リスナーを追加する
-	 */
 	public void setOnConnectingListener(ClientConnectListener listener){
 		this._connectListener = listener;
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	/**
-	 * リスナーを削除する
-	 */
 	public void removeListener(){
 		this._connectListener = null;
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	public interface ClientConnectListener extends EventListener {
-
+	public interface ClientConnectListener{
 		public void success(BluetoothConnectingThread connecting);
-
 	}
 }

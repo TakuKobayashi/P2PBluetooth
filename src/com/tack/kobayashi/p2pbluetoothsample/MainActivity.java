@@ -16,7 +16,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		SampleListAdapter adapter = new SampleListAdapter(this);
 		adapter.setStringList(this.getResources().getStringArray(R.array.titleList));
 		ListView list = (ListView) findViewById(R.id.list);

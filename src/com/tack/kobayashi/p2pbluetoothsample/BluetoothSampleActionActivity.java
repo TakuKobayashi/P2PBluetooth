@@ -72,7 +72,6 @@ public class BluetoothSampleActionActivity extends Activity {
 	protected void onStart() {
 		super.onResume();
 		_serverThread = new BluetoothServerThread(this, _bluetoothAdapter);
-		_serverThread.start();
 		_serverThread.setOnConnectingListener(new ServerConnectListener() {
 			@Override
 			public void success(BluetoothConnectingThread connecting) {
@@ -90,14 +89,15 @@ public class BluetoothSampleActionActivity extends Activity {
 				});
 			}
 		});
+		_serverThread.start();
 		_clientThread = new BluetoothClientThread(BluetoothSampleActionActivity.this, _server, _bluetoothAdapter);
-		_clientThread.start();
 		_clientThread.setOnConnectingListener(new ClientConnectListener() {
 			@Override
 			public void success(BluetoothConnectingThread connecting) {
 				_clientConnecting = connecting;
 			}
 		});
+		_clientThread.start();
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,10 +106,10 @@ public class BluetoothSampleActionActivity extends Activity {
 	protected void onStop() {
 		super.onPause();
 		if(_serverThread.isAlive()){
-			_serverThread.cancel();
+			_serverThread.close();
 		}
 		if(_clientThread.isAlive()){
-			_clientThread.cancel();
+			_clientThread.close();
 		}
 	}
 

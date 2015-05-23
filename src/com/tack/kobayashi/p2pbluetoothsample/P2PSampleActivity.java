@@ -22,7 +22,6 @@ public class P2PSampleActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.p2p_sample_view);
 
-
 		_intentFilter = new IntentFilter();
 		_intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
 		_intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
